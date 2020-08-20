@@ -4,6 +4,11 @@ magma port of https://github.com/ucb-bar/chisel-tutorial
 Currently WIP, please post any questions on GitHub Issues or feel free to
 contribute!
 
+## Examples
+* [full_adder.py](magma_examples/full_adder.py), [test_full_adder.py](tests/test_full_adder.py)
+* [adder4.py](magma_examples/adder4.py), [test_adder4.py](tests/test_adder4.py)
+* [adder.py](magma_examples/adder.py), [test_adder.py](tests/test_adder.py)
+
 ## Dependencies
 ### Ubuntu
 ```
@@ -20,3 +25,4 @@ pip install pytest
 pip install -e .
 pytest tests
 ```
+
