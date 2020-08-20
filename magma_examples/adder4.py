@@ -11,7 +11,6 @@ class Adder4(m.Circuit):
         SUM=m.Out(m.UInt[4]),
         COUT=m.Out(m.Bit)
     )
-    curr_sum = []
     curr_cin = io.CIN
     for i in range(4):
         next_sum, curr_cin = FullAdder()(io.A[i], io.B[i], curr_cin)
