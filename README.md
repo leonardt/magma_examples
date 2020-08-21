@@ -6,10 +6,13 @@ magma port of https://github.com/ucb-bar/chisel-tutorial
 Currently WIP, please post any questions on GitHub Issues or feel free to
 contribute!
 
-## Examples
-* [full_adder.py](magma_examples/full_adder.py), [test_full_adder.py](tests/test_full_adder.py)
-* [adder4.py](magma_examples/adder4.py), [test_adder4.py](tests/test_adder4.py)
-* [adder.py](magma_examples/adder.py), [test_adder.py](tests/test_adder.py)
+Example magma designs can be found in [magma_examples](./magma_examples), the
+corresponding unit tests can be found in [tests](./tests).
+
+This repository also serves an example for setting up a magma repo for CI with
+GitHub actions.
+
+Please use GitHub Issues to post any questions about the examples.
 
 ## Dependencies
 ### Ubuntu
