@@ -3,9 +3,6 @@
 
 magma port of https://github.com/ucb-bar/chisel-tutorial
 
-Currently WIP, please post any questions on GitHub Issues or feel free to
-contribute!
-
 Example magma designs can be found in [magma_examples](./magma_examples), the
 corresponding unit tests can be found in [tests](./tests).
 
