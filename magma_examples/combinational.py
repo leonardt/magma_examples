@@ -1,10 +1,6 @@
 import magma as m
 
 
-class Combinational(m.Circuit):
-    io = m.IO(
-        x=m.In(m.UInt[16]),
-        y=m.In(m.UInt[16]),
-        z=m.Out(m.UInt[16])
-    )
-    io.z @= io.x + io.y
+@m.combinational2()
+def add(x: m.UInt[16], y: m.UInt[16]) -> m.UInt[16]:
+    return x + y
