@@ -1,4 +1,5 @@
 import random
+import tempfile
 
 import pytest
 
@@ -8,8 +9,7 @@ from hwtypes import BitVector
 
 
 @pytest.mark.parametrize("N", [random.randint(1, 16) for _ in range(4)])
-def test_adder4(N):
-    N = random.randint(1, 16)
+def test_adder(N):
     tester = f.Tester(Adder(N))
     tester.circuit.A = A = BitVector.random(N)
     tester.circuit.B = B = BitVector.random(N)
@@ -18,4 +18,5 @@ def test_adder4(N):
     tester.circuit.SUM.expect(A + B + CIN.zext(N - 1))
     tester.circuit.COUT.expect((A.zext(1) + B.zext(1) +
                                 CIN.zext(N))[-1])
-    tester.compile_and_run("verilator")
+    with tempfile.TemporaryDirectory() as dir_:
+        tester.compile_and_run("verilator", directory=dir_)
