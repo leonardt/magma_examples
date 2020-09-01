@@ -6,7 +6,7 @@ from magma_examples.stack import Stack
 
 def push(tester, data):
     tester.circuit.en = 1
-    tester.circuit.data_in =  data
+    tester.circuit.data_in = data
     tester.circuit.push = 1
     tester.advance_cycle()
     tester.circuit.en = 0
@@ -25,7 +25,7 @@ def expect_pop(tester, data):
 
 def push_and_pop(tester, data):
     tester.circuit.en = 1
-    tester.circuit.data_in =  data
+    tester.circuit.data_in = data
     tester.circuit.push = 1
     tester.circuit.pop = 1
     tester.advance_cycle()

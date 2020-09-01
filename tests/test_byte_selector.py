@@ -12,4 +12,3 @@ def test_byte_selector():
         tester.eval()
         tester.circuit.O.expect(I[i * 8:(i + 1) * 8])
     tester.compile_and_run("verilator")
-

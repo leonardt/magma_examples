@@ -13,4 +13,3 @@ def test_full_adder():
         tester.circuit.sum_.expect(a ^ b ^ cin)
         tester.circuit.cout.expect((a & b) | (b & cin) | (a & cin))
     tester.compile_and_run("verilator")
-

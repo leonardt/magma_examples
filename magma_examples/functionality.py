@@ -2,9 +2,10 @@ import magma as m
 
 
 @m.combinational2()
-def clb(a: m.UInt[16], b: m.UInt[16], c: m.UInt[16], 
+def clb(a: m.UInt[16], b: m.UInt[16], c: m.UInt[16],
         d: m.UInt[16]) -> m.UInt[16]:
     return (a & b) | (~c & d)
+
 
 class Functionality(m.Circuit):
     io = m.IO(

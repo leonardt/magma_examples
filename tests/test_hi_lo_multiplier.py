@@ -13,4 +13,3 @@ def test_hi_lo_multiplier():
     tester.circuit.Lo.expect(C[:16])
     tester.circuit.Hi.expect(C[16:])
     tester.compile_and_run("verilator")
-

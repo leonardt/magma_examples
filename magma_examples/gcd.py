@@ -7,7 +7,7 @@ class GCD:
         self.x = m.Register(m.UInt[16])()
         self.y = m.Register(m.UInt[16])()
 
-    def __call__(self, a: m.In(m.UInt[16]), b: m.In(m.UInt[16]), 
+    def __call__(self, a: m.In(m.UInt[16]), b: m.In(m.UInt[16]),
                  load: m.In(m.Bit)) -> (m.Out(m.UInt[16]), m.Out(m.Bit)):
         if load:
             self.x = a

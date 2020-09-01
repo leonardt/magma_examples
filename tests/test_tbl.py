@@ -11,4 +11,3 @@ def test_tbl():
         tester.eval()
         tester.circuit.out.expect(addr)
     tester.compile_and_run("verilator")
-

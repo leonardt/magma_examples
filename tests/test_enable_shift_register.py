@@ -1,5 +1,5 @@
 import fault
-from hwtypes import BitVector 
+from hwtypes import BitVector
 from magma_examples.enable_shift_register import EnableShiftRegister
 
 
