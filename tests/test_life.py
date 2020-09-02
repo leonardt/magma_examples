@@ -337,6 +337,6 @@ Period: 19
  8  *               *
  9  *                 *
 
-"""
-    offset = 23  # Ignore colored </STDOUT> separater
-    assert out[-len(expected)-offset:-offset] == expected
+""".splitlines()
+    # Ignore </STDOUT> separater (last line)
+    assert out.splitlines()[-len(expected) - 1:-1] == expected
