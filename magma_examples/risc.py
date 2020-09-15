@@ -44,5 +44,5 @@ class Risc(m.Circuit):
                 io.valid @= True
             pc.I @= pc.O + 1
 
-    io.out @= rc
-    file.write(rci, rc, enable=(rci != 255))
+        io.out @= rc
+        file.write(rci, rc, enable=(rci != 255))
