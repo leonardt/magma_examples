@@ -24,12 +24,15 @@ class Risc(m.Circuit):
 
     ra = m.mux([file[rai], 0], rai == 0)
     rb = m.mux([file[rbi], 0], rbi == 0)
+    rc = m.Bits[32]()
+    io.out @= rc
 
     code.write(io.write_addr, io.write_data, enable=io.is_write)
+    file.write(rci, rc, enable=(rci != 255))
 
     @m.inline_combinational()
     def logic():
-        rc = m.Bits[32](0)
+        rc @= m.Bits[32](0)
         io.valid @= False
         if io.is_write:
             pc.I @= pc.O
@@ -37,12 +40,9 @@ class Risc(m.Circuit):
             pc.I @= 0
         else:
             if op == 0:
-                rc = ra + rb
+                rc @= ra + rb
             elif op == 1:
-                rc = m.zext((rai << 8) | rbi, 24)
+                rc @= m.zext((rai << 8) | rbi, 24)
             if rci == 255:
                 io.valid @= True
             pc.I @= pc.O + 1
-
-        io.out @= rc
-        file.write(rci, rc, enable=(rci != 255))
