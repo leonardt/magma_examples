@@ -27,8 +27,8 @@ class Risc(m.Circuit):
     rc = m.Bits[32]()
     io.out @= rc
 
-    code.write(io.write_addr, io.write_data, enable=io.is_write)
-    file.write(rci, rc, enable=(rci != 255))
+    code.write(io.write_addr, io.write_data, enable=m.enable(io.is_write))
+    file.write(rci, rc, enable=m.enable(rci != 255))
 
     @m.inline_combinational()
     def logic():

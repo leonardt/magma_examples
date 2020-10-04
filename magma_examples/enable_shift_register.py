@@ -6,7 +6,7 @@ from ast_tools.macros import unroll
 class EnableShiftRegister(m.Circuit):
     io = m.IO(
         I=m.In(m.UInt[4]),
-        shift=m.In(m.Bit),
+        shift=m.In(m.Enable),
         O=m.Out(m.UInt[4])
     ) + m.ClockIO(has_async_reset=True)
     regs = [m.Register(m.UInt[4], reset_type=m.AsyncReset, has_enable=True)()
