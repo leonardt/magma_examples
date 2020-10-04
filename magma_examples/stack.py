@@ -6,7 +6,7 @@ class Stack(m.Generator2):
         self.io = io = m.IO(
             push=m.In(m.Bit),
             pop=m.In(m.Bit),
-            en=m.In(m.Enable),
+            en=m.In(m.Bit),
             data_in=m.In(m.UInt[32]),
             data_out=m.Out(m.UInt[32]),
         ) + m.ClockIO()
@@ -16,7 +16,7 @@ class Stack(m.Generator2):
         out_reg = m.Register(m.UInt[32])()
 
         wen = io.en & io.push & (stack_pointer.O < depth)
-        stack_mem.WE @= wen
+        stack_mem.WE @= m.enable(wen)
         stack_mem.WDATA @= io.data_in
         stack_mem.WADDR @= stack_pointer.O[:-1]
 
