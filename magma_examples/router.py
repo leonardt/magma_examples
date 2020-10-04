@@ -57,7 +57,8 @@ class Router(m.Generator2):
         tbl_addr_width = m.bitutils.clog2(route_table_size)
         tbl.WADDR @= io.load_routing_table_request.addr[:tbl_addr_width]
 
-        tbl.WE @= ~read_resp_valid & io.load_routing_table_request.valid
+        tbl.WE @= m.enable(~read_resp_valid &
+                           io.load_routing_table_request.valid)
         io.read_routing_table_request.ready @= read_resp_valid
         tbl.RADDR @= m.mux(
             [

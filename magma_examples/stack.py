@@ -6,7 +6,7 @@ class Stack(m.Generator2):
         self.io = io = m.IO(
             push=m.In(m.Bit),
             pop=m.In(m.Bit),
-            en=m.In(m.Bit),
+            en=m.In(m.Enable),
             data_in=m.In(m.UInt[32]),
             data_out=m.Out(m.UInt[32]),
         ) + m.ClockIO()
