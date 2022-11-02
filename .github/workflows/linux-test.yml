@@ -23,82 +23,23 @@ jobs:
             cxx: clang++
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
       with:
-        repository: llvm/circt
-        path: circt    
-        submodules: 'recursive'
-        fetch-depth: 1
-
-    # Cache the LLVM submodule inside CIRCT
-    - name: Cache CIRCT LLVM/MLIR
-      id: cache-circt-llvm
-      uses: actions/cache@v2
-      with:
-        path: circt/llvm/build
-        key: ${{ inputs.build-type }}-${{ runner.os }}-circt-llvm-${{ hashFiles('circt/.git/modules/llvm/HEAD') }}
-
-    # Build LLVM+MLIR
-    - name: CIRCT LLVM+MLIR build
-      if: steps.cache-circt-llvm.outputs.cache-hit != 'true'
-      env:
-          CC: ${{ inputs.cc }}
-          CXX: ${{ inputs.cxx }}
-      shell: bash
-      run: |
-        mkdir -p circt/llvm/build
-        cd circt/llvm/build
-        cmake -G Ninja ../llvm \
-            -DLLVM_BUILD_EXAMPLES=OFF \
-            -DLLVM_ENABLE_BINDINGS=OFF \
-            -DBUILD_SHARED_LIBS=ON \
-            -DLLVM_ENABLE_LLD=ON \
-            -DLLVM_OPTIMIZED_TABLEGEN=ON \
-            -DLLVM_ENABLE_PROJECTS="mlir" \
-            -DLLVM_TARGETS_TO_BUILD="host" \
-            -DLLVM_ENABLE_ASSERTIONS=ON \
-            -DCMAKE_BUILD_TYPE=Release
-        ninja -j$(nproc)
-
-    # Cache CIRCT itself
-    - name: Cache CIRCT
-      id: cache-circt
-      uses: actions/cache@v2
-      with:
-        path: circt/build
-        key: ${{ inputs.build-type }}-${{ runner.os }}-circt-${{ inputs.cache-version }}-${{ hashFiles('circt/.git/refs/heads/main') }}
-
-    # Build CIRCT
-    - name: CIRCT build
-      shell: bash
-      if: steps.cache-circt.outputs.cache-hit != 'true'
-      env:
-          CC: ${{ inputs.cc }}
-          CXX: ${{ inputs.cxx }}
-      run: |
-        mkdir -p circt/build
-        cd circt/build
-        cmake -G Ninja .. \
-          -DMLIR_DIR=$PWD/../llvm/build/lib/cmake/mlir \
-          -DLLVM_DIR=$PWD/../llvm/build/lib/cmake/llvm \
-          -DLLVM_ENABLE_ASSERTIONS=ON \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        ninja -j$(nproc)
-        export PATH=$PATH:circuit/build/bin
-
+        python-version: "3.8"
     - name: Install dependencies
       shell: bash
       run: |
-        apt install -y verilator libgmp-dev libmpfr-dev libmpc-dev
-
+          wget https://github.com/llvm/circt/releases/download/sifive%2F1%2F21%2F0/circt-bin-ubuntu-20.04.tar.gz
+          tar -xvf circt-bin-ubuntu-20.04.tar.gz
+          export PATH=$PATH:$PWD/bin
+          apt install -y verilator libgmp-dev libmpfr-dev libmpc-dev
     - name: Install Python packages
       shell: bash -l {0}
       run: |
-        pip install pytest
-        pip install -e .
-
+          pip install pytest
+          pip install -e .
     - name: Pytest
       shell: bash -l {0}
       run: |
