@@ -4,6 +4,7 @@ from magma_examples.enable_shift_register import EnableShiftRegister
 
 
 def test_enable_shift_register():
+    print(repr(EnableShiftRegister))
     tester = fault.SynchronousTester(EnableShiftRegister,
                                      EnableShiftRegister.CLK)
     input_seq = [BitVector.random(4) for _ in range(8)]

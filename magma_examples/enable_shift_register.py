@@ -11,23 +11,10 @@ class EnableShiftRegister(m.Circuit):
     ) + m.ClockIO(has_async_reset=True)
     regs = [m.Register(m.UInt[4], reset_type=m.AsyncReset, has_enable=True)()
             for _ in range(4)]
-    io.O @= m.fold(regs, foldargs={"I": "O"})(io.I, CE=io.shift, CLK=io.CLK,
-                                              ASYNCRESET=io.ASYNCRESET)
 
+    with m.when(io.shift):
+        regs[0].I @= io.I
+        for i in range(3):
+            regs[i + 1].I @= regs[i].O
 
-# This implementation introduces sequential, but is block by this bug:
-# https://github.com/leonardt/ast_tools/issues/61
-#
-# @m.sequential2(reset_type=m.AsyncReset, pre_passes=[loop_unroll()])
-# class EnableShiftRegister:
-#     def __init__(self):
-#         self.regs = [m.Register(m.UInt[4])() for _ in range(4)]
-
-#     def __call__(self, I: m.UInt[4], shift: m.Bit) -> m.UInt[4]:
-#         for i in unroll(range(4)):
-#             self.regs[i] = self.regs[i]
-#         if shift:
-#             self.regs[0] = I
-#             for i in unroll(range(3)):
-#                 self.regs[i + 1] = self.regs[i].prev()
-#         return self.regs[-1].prev()
+    io.O @= regs[-1].O
