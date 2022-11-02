@@ -10,7 +10,7 @@ def test_router():
     tester = fault.Tester(DefaultRouter, DefaultRouter.CLK)
 
     def read_routing_table(addr, data):
-        tester.circuit.read_routing_table_request.addr = addr
+        tester.circuit.read_routing_table_request.data.addr = addr
         tester.circuit.read_routing_table_request.valid = 1
         tester.circuit.read_routing_table_response.ready = 1
         tester.step()
@@ -22,8 +22,8 @@ def test_router():
         tester.circuit.read_routing_table_response.data.expect(data)
 
     def write_routing_table(addr, data):
-        tester.circuit.load_routing_table_request.addr = addr
-        tester.circuit.load_routing_table_request.data = data
+        tester.circuit.load_routing_table_request.data.addr = addr
+        tester.circuit.load_routing_table_request.data.data = data
         tester.circuit.load_routing_table_request.valid = 1
         tester.step()
         tester.circuit.load_routing_table_request.ready.expect(1)
@@ -35,8 +35,8 @@ def test_router():
         read_routing_table(addr, data)
 
     def route_packet(header, body, routed_to):
-        tester.circuit.I.header = header
-        tester.circuit.I.body = body
+        tester.circuit.I.data.header = header
+        tester.circuit.I.data.body = body
         tester.circuit.I.valid = 1
         tester.circuit.O[routed_to].ready = 1
         tester.step()
@@ -47,7 +47,7 @@ def test_router():
 
         tester.circuit.I.valid = 0
         tester.circuit.O[routed_to].ready = 0
-        tester.circuit.O[routed_to].body.expect(body)
+        tester.circuit.O[routed_to].data.body.expect(body)
 
     read_routing_table(0, 0)
 
