@@ -7,8 +7,20 @@ on:
 
 jobs:
   build:
+    # based on https://github.com/circt-hls/circt-hls/blob/af089ec837a099cbdcd3c0ae9cd44b651f974fff/.github/workflows/build.yml
+    container:
+      image: ghcr.io/circt/images/circt-ci-build:20211130162811
+    name: Build ${{ matrix.build }} ${{ matrix.os }} ${{ matrix.compiler }}
+    runs-on: ${{ matrix.os }}
 
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build: ["Release"]
+        os: [ubuntu-latest]
+        compiler:
+          - cc: clang
+            cxx: clang++
 
     steps:
     - uses: actions/checkout@v2
