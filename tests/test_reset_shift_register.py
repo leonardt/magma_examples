@@ -29,4 +29,4 @@ def test_reset_shift_register():
     for i in range(3):
         tester.advance_cycle()
         tester.circuit.O.expect(0)
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

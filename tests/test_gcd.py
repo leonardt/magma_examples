@@ -12,4 +12,6 @@ def test_gcd():
     tester.advance_cycle()
     tester.wait_on(tester.circuit.O1 == 1)
     tester.circuit.O0.expect(16)
-    tester.compile_and_run("verilator", flags=['--trace'])
+    tester.compile_and_run("verilator",
+                           flags=['--trace'],
+                           magma_output="mlir-verilog")

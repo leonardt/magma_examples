@@ -10,4 +10,4 @@ def test_tbl():
         tester.circuit.addr = addr = BitVector.random(8)
         tester.eval()
         tester.circuit.out.expect(addr)
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

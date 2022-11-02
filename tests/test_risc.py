@@ -33,4 +33,4 @@ def test_risc():
     tester.circuit.boot = 0
     tester.wait_until_high(tester.circuit.valid)
     tester.circuit.out.expect(4)
-    tester.compile_and_run("verilator", magma_opts={"verilator_compat": True})
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

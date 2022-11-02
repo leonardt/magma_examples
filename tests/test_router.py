@@ -78,5 +78,6 @@ def test_router():
         print(type(DefaultRouter.O))
         route_packet(i % 15, data, new_routing_table[i % 15])
 
-    tester.compile_and_run("verilator", magma_opts={"verilator_compat": True,
-                                                    "inline": True}, flags=['--trace'])
+    tester.compile_and_run("verilator",
+                           magma_output="mlir-verilog",
+                           flags=['--trace'])

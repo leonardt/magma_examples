@@ -8,4 +8,4 @@ def test_combinational():
     x = BitVector.random(16)
     y = BitVector.random(16)
     tester(x, y).expect(x + y)
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

@@ -12,4 +12,4 @@ def test_shift_register():
         tester.circuit.I = i
         tester.advance_cycle()
         tester.circuit.O.expect(o)
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

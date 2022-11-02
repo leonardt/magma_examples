@@ -13,5 +13,5 @@ def test_parity():
         tester.advance_cycle()
         is_odd = (is_odd + bit) % 2
         tester.circuit.O.expect(is_odd)
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")
 

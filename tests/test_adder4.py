@@ -12,4 +12,4 @@ def test_adder4():
         tester.eval()
         tester.circuit.SUM.expect(A + B + CIN.zext(3))
         tester.circuit.COUT.expect((A.zext(1) + B.zext(1) + CIN.zext(4))[-1])
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

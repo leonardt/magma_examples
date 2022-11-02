@@ -8,4 +8,4 @@ def test_vec_search():
     for item in PATTERN:
         tester.circuit.out.expect(item)
         tester.advance_cycle()
-    tester.compile_and_run("verilator", magma_opts={"verilator_compat": True})
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

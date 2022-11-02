@@ -8,3 +8,4 @@ def test_darken():
     tester.circuit.I = I = BitVector.random(8)
     tester.eval()
     tester.circuit.O.expect(I << 1)
+    tester.compile_and_run('verilator', magma_output="mlir-verilog")

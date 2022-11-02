@@ -60,8 +60,8 @@ def test_life(capsys):
         print_board()
         tester.advance_cycle()
 
-
-    tester.compile_and_run("verilator", disp_type="realtime")
+    tester.compile_and_run("verilator", disp_type="realtime",
+                           magma_output="mlir-verilog")
 
     out, _ = capsys.readouterr()
     expected = """\

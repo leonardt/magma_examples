@@ -71,4 +71,4 @@ def test_stack():
     expect_pop(tester, 1)
     expect_pop(tester, 0)
 
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

@@ -11,4 +11,4 @@ def test_log_shifter():
     for _ in range(3):
         tester.advance_cycle()
     tester.circuit.O.expect(I << shift_amount.zext(12))
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

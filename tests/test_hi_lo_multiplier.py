@@ -12,4 +12,4 @@ def test_hi_lo_multiplier():
     C = A.zext(16) * B.zext(16)
     tester.circuit.Lo.expect(C[:16])
     tester.circuit.Hi.expect(C[16:])
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

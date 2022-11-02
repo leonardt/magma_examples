@@ -33,4 +33,4 @@ def test_basic_alu(circuit, ops):
         tester.circuit.opcode = i
         tester.eval()
         tester.circuit.out.expect(op(a, b))
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

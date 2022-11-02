@@ -12,4 +12,4 @@ def test_full_adder():
         tester.eval()
         tester.circuit.sum_.expect(a ^ b ^ cin)
         tester.circuit.cout.expect((a & b) | (b & cin) | (a & cin))
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")

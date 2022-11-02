@@ -11,4 +11,4 @@ def test_byte_selector():
         tester.circuit.offset = i
         tester.eval()
         tester.circuit.O.expect(I[i * 8:(i + 1) * 8])
-    tester.compile_and_run("verilator")
+    tester.compile_and_run("verilator", magma_output="mlir-verilog")
