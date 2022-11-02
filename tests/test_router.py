@@ -80,4 +80,4 @@ def test_router():
 
     tester.compile_and_run("verilator",
                            magma_output="mlir-verilog",
-                           flags=['--trace'])
+                           flags=['--trace', '-Wno-UNUSED'])
