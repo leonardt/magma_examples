@@ -22,15 +22,11 @@ class Stack(m.Generator2):
 
         stack_mem.RADDR @= stack_pointer.O[:-1] - 1
 
-        @m.inline_combinational()
-        def logic():
-            stack_pointer.I @= stack_pointer.O
-            if wen:
-                stack_pointer.I @= stack_pointer.O + 1
-            elif io.en & io.pop & (stack_pointer.O > 0):
-                stack_pointer.I @= stack_pointer.O - 1
+        with m.when(wen):
+            stack_pointer.I @= stack_pointer.O + 1
+        with m.elsewhen(io.en & io.pop & (stack_pointer.O > 0)):
+            stack_pointer.I @= stack_pointer.O - 1
 
-            out_reg.I @= out_reg.O
-            if stack_pointer.O > 0:
-                out_reg.I @= stack_mem.RDATA
+        with m.when(stack_pointer.O > 0):
+            out_reg.I @= stack_mem.RDATA
         io.data_out @= out_reg.O
