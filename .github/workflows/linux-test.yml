@@ -40,5 +40,5 @@ jobs:
     - name: Pytest
       shell: bash -l {0}
       run: |
-        export CIRCT_HOME=$PATH:$PWD/bin
+        export CIRCT_HOME=$PATH:$PWD/circuit
         pytest tests/
