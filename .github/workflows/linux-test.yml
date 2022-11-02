@@ -29,7 +29,7 @@ jobs:
       run: |
           export CIRCT_HOME=$PWD/circt
           mkdir -p circuit/build
-          cd circuilt/build
+          cd circuit/build
           wget https://github.com/llvm/circt/releases/download/sifive%2F1%2F21%2F0/circt-bin-ubuntu-20.04.tar.gz
           tar -xvf circt-bin-ubuntu-20.04.tar.gz
           cd ../..
