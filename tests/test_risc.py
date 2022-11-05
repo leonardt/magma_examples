@@ -34,4 +34,5 @@ def test_risc():
     tester.wait_until_high(tester.circuit.valid)
     tester.circuit.out.expect(4)
     tester.compile_and_run("verilator", magma_output="mlir-verilog",
-                           flags=["-Wno-WIDTH"])
+                           magma_opts={"flatten_all_tuples": True},
+                           flags=["-Wno-WIDTH", "-Wno-UNUSED", "-Wno-LATCH"])

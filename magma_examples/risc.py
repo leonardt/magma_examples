@@ -30,35 +30,17 @@ class Risc(m.Circuit):
     code.write(io.write_addr, io.write_data, enable=m.enable(io.is_write))
     file.write(rci, rc, enable=m.enable(rci != 255))
 
-    # TODO: Fix false positive RC latch error
-    # rc @= m.Bits[32](0)
-    # io.valid @= False
-    # with m.when(io.is_write):
-    #     pc.I @= pc.O
-    # with m.elsewhen(io.boot):
-    #     pc.I @= 0
-    # with m.otherwise():
-    #     with m.when(op == 0):
-    #         rc @= ra + rb
-    #     with m.elsewhen(op == 1):
-    #         rc @= m.zext((rai << 8) | rbi, 24)
-    #     with m.when(rci == 255):
-    #         io.valid @= True
-    #     pc.I @= pc.O + 1
-
-    @m.inline_combinational()
-    def logic():
-        rc @= m.Bits[32](0)
-        io.valid @= False
-        if io.is_write:
-            pc.I @= pc.O
-        elif io.boot:
-            pc.I @= 0
-        else:
-            if op == 0:
-                rc @= ra + rb
-            elif op == 1:
-                rc @= m.zext((rai << 8) | rbi, 24)
-            if rci == 255:
-                io.valid @= True
-            pc.I @= pc.O + 1
+    rc @= m.Bits[32](0)
+    io.valid @= False
+    with m.when(io.is_write):
+        pc.I @= pc.O
+    with m.elsewhen(io.boot):
+        pc.I @= 0
+    with m.otherwise():
+        with m.when(op == 0):
+            rc @= ra + rb
+        with m.elsewhen(op == 1):
+            rc @= m.zext((rai << 8) | rbi, 24)
+        with m.when(rci == 255):
+            io.valid @= True
+        pc.I @= pc.O + 1

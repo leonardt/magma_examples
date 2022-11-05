@@ -29,6 +29,7 @@ jobs:
     - name: Install Python packages
       shell: bash -l {0}
       run: |
+          pip install git+https://github.com/phanrahan/magma.git@fix-when-latch-bug
           pip install pytest
           pip install -e .
     - name: Pytest
